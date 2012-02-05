@@ -1,9 +1,15 @@
 package com.floatbackwards.statuscodes;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.EnumMap;
 import java.util.Map;
 
+/**
+ * Enum representing an HttpStatus code
+ * 
+ * @author Ben Griffiths
+ */
 public enum HttpStatus {
 
 	Continue(100, "Continue", "The client should continue with its request."),
@@ -12,7 +18,7 @@ public enum HttpStatus {
 	OK(200, "OK", "The request sent by the client was successful."),
 	Created(201, "Created", "The request was successful and the resource has been created."),
 	Accepted(202, "Accepted", "The request has been accepted but has not yet finished processing."),
-	NonAuthoritativeInformation(203, "Non-Authoritative Information","The returned metainformation in the entity header is not the definitative set of information, it might be a local copy or contain local alterations."),
+	NonAuthoritativeInformation(203, "Non-Authoritative Information", "The returned metainformation in the entity header is not the definitative set of information, it might be a local copy or contain local alterations."),
 	NoContent(204, "No Content", "The request was successful but not require the return of an entity body."),
 	ResetContent(205, "Reset Content", "The request was successful and the user agent should reset the view that sent the request."),
 	PartialContent(206, "Partial Conent", "The partial request was successful."),
@@ -57,7 +63,8 @@ public enum HttpStatus {
 	private final int code;
 	private final String name;
 	private final String description;
-	
+	private final String jsonString;
+
 	private static Map<HttpStatus, JaxbStatus> jaxbStatuses;
 	static {
 		jaxbStatuses = new EnumMap<HttpStatus, JaxbStatus>(HttpStatus.class);
@@ -70,10 +77,12 @@ public enum HttpStatus {
 		this.code = code;
 		this.name = name;
 		this.description = description;
+		this.jsonString = generateJsonString();
 	}
 
 	/**
 	 * Returns the int status code this enum represents
+	 * 
 	 * @return the int status code this enum represents
 	 */
 	public final int getCode() {
@@ -82,6 +91,7 @@ public enum HttpStatus {
 
 	/**
 	 * Returns the name of the HTTP status this enum represents
+	 * 
 	 * @return the name of the HTTP status this enum represents
 	 */
 	public final String getName() {
@@ -90,6 +100,7 @@ public enum HttpStatus {
 
 	/**
 	 * Returns a description of the HTTP status this enum represents
+	 * 
 	 * @return a description of the HTTP status this enum represents
 	 */
 	public final String getDescription() {
@@ -97,8 +108,19 @@ public enum HttpStatus {
 	}
 
 	/**
+	 * Returns a json string representing this HttpStatus
+	 * 
+	 * @return a json string representing this HttpStatus
+	 */
+	public final String getJsonString() {
+		return jsonString;
+	}
+
+	/**
 	 * Returns the HttpStatus object with a code matching the supplied int
-	 * @param httpStatus the httpStatus code
+	 * 
+	 * @param httpStatus
+	 *            the httpStatus code
 	 * @return the HttpStatus object with a code matching the supplied int
 	 */
 	public static HttpStatus getByCode(int httpStatus) {
@@ -128,17 +150,36 @@ public enum HttpStatus {
 		}
 		return getByCode(statusCode);
 	}
-	
-	public String toJsonString() {
+
+	/**
+	 * Returns a json string representing this HttpStatus
+	 * 
+	 * @return a json string representing this HttpStatus
+	 */
+	public String generateJsonString() {
 		return String.format("{\"code\": %s, \"name\": \"%s\", \"description\": \"%s\"}", code, name, description);
 	}
-	
+
+	/**
+	 * Returns a reference to a JaxbStatus object that represents this
+	 * HttpStatus
+	 * 
+	 * @return a reference to a JaxbStatus object that represents this
+	 *         HttpStatus
+	 */
 	public JaxbStatus asJaxbStatus() {
 		return jaxbStatuses.get(this);
 	}
-	
+
+	/**
+	 * Returns an unmodifiable collection of JaxbStatus objects, one for each
+	 * HttpStatus
+	 * 
+	 * @return an unmodifiable collection of JaxbStatus objects, one for each
+	 *         HttpStatus
+	 */
 	public static Collection<JaxbStatus> getJaxbValues() {
-		return jaxbStatuses.values();
+		return Collections.unmodifiableCollection(jaxbStatuses.values());
 	}
 
 }

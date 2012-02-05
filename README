@@ -34,3 +34,5 @@ mvn clean package
 
 -- Start a jetty server on port 8080 with the service deployed to /http-status/
 mvn clean jetty:run-war
+
+*******************************************************************************

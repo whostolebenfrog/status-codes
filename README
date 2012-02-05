@@ -1,0 +1,36 @@
+*******************************************************************************
+
+A webservice that returns HTTP status responses and information.
+
+Example use:
+
+/http-status/codes/200
+
+Would return a 200 response with the additional json string in the resource
+body.
+
+{"code": 200, "name": "OK", "description": "The request sent by the client was
+successful."}
+
+/http-status/codes/500
+
+Will return a 500 response, again with a json string describing the HTTP status
+code.
+
+/http-status/codes/list
+
+Will return all the available HTTP status codes.
+
+*******************************************************************************
+
+After cloning the repository and ensuring that you have maven installed and 
+available you can do the following.
+
+-- Generate eclipse project files:
+mvn eclipse:eclipse
+
+-- Create a war of the service in the ./target directory:
+mvn clean package
+
+-- Start a jetty server on port 8080 with the service deployed to /http-status/
+mvn clean jetty:run-war

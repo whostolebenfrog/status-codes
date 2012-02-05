@@ -10,8 +10,8 @@ import javax.ws.rs.core.Response;
 public interface HttpStatusCodesServiceResource {
 
 	@GET
-	@Path("/codes/{statusCode}")
-	@Produces("text/plain") 
+	@Path("/code/{statusCode}")
+	@Produces("application/json") 
 	public Response getStatus(@PathParam("statusCode") String statusCode);
 	
 }

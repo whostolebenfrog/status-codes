@@ -1,5 +1,9 @@
 package com.floatbackwards.statuscodes;
 
+import java.util.Collection;
+import java.util.EnumMap;
+import java.util.Map;
+
 public enum HttpStatus {
 
 	Continue(100, "Continue", "The client should continue with its request."),
@@ -35,7 +39,7 @@ public enum HttpStatus {
 	Gone(410, "Gone", "The requested resource is no longer available on the server and no redirect address is available."),
 	LengthRequired(411, "Length Required", "The server will not accept the request without a Content-Length field."),
 	PreconditionFailed(412, "Precondition Failed", "The supplied precondition evaluated to false on the server."),
-	RequestEntityTooLarge(413, "Request Entity Too Large", "The request was unsuccessful because the request entity was larger than the server would allow (that's what she said)."),
+	RequestEntityTooLarge(413, "Request Entity Too Large", "The request was unsuccessful because the request entity was larger than the server would allow"),
 	RequestedURITooLong(414, "Requeste URI Too Long", "The request was unsuccessful because the requested URI is longer than the server is willing to process (that's what she said)."),
 	UnsupportedMediaType(415, "Unsupported Media Type", "The request was unsuccessful because the request was for an unsupported format."),
 	RequestRangeNotSatisfiable(416, "Request Range Not Satisfiable", "The range of the resource does not overlap with the values specified in the requests Range header field and not alternative If-Range field was supplied."),
@@ -53,6 +57,14 @@ public enum HttpStatus {
 	private final int code;
 	private final String name;
 	private final String description;
+	
+	private static Map<HttpStatus, JaxbStatus> jaxbStatuses;
+	static {
+		jaxbStatuses = new EnumMap<HttpStatus, JaxbStatus>(HttpStatus.class);
+		for (HttpStatus status : values()) {
+			jaxbStatuses.put(status, new JaxbStatus(status));
+		}
+	}
 
 	private HttpStatus(int code, String name, String description) {
 		this.code = code;
@@ -60,18 +72,35 @@ public enum HttpStatus {
 		this.description = description;
 	}
 
+	/**
+	 * Returns the int status code this enum represents
+	 * @return the int status code this enum represents
+	 */
 	public final int getCode() {
 		return code;
 	}
 
+	/**
+	 * Returns the name of the HTTP status this enum represents
+	 * @return the name of the HTTP status this enum represents
+	 */
 	public final String getName() {
 		return name;
 	}
 
+	/**
+	 * Returns a description of the HTTP status this enum represents
+	 * @return a description of the HTTP status this enum represents
+	 */
 	public final String getDescription() {
 		return description;
 	}
 
+	/**
+	 * Returns the HttpStatus object with a code matching the supplied int
+	 * @param httpStatus the httpStatus code
+	 * @return the HttpStatus object with a code matching the supplied int
+	 */
 	public static HttpStatus getByCode(int httpStatus) {
 		for (HttpStatus status : HttpStatus.values()) {
 			if (status.getCode() == httpStatus) {
@@ -98,6 +127,18 @@ public enum HttpStatus {
 			return Unknown;
 		}
 		return getByCode(statusCode);
+	}
+	
+	public String toJsonString() {
+		return String.format("{\"code\": %s, \"name\": \"%s\", \"description\": \"%s\"}", code, name, description);
+	}
+	
+	public JaxbStatus asJaxbStatus() {
+		return jaxbStatuses.get(this);
+	}
+	
+	public static Collection<JaxbStatus> getJaxbValues() {
+		return jaxbStatuses.values();
 	}
 
 }

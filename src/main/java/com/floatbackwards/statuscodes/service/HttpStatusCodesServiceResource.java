@@ -40,6 +40,8 @@ public interface HttpStatusCodesServiceResource {
 	 * 
 	 * @return a list of all available {@link HttpStatus} objects
 	 */
+	// @AddLinks
+	// @LinkResource(pathParameters = { "${HttpStatus.code}" })
 	@GET
 	@Path("/codes/list")
 	@Produces(JSON)

@@ -41,6 +41,11 @@
 			<artifactId>resteasy-jettison-provider</artifactId>
 			<version>${rest-easy.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-links</artifactId>
+			<version>${rest-easy.version}</version>
+		</dependency>
 	</dependencies>
 
 	<build>

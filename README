@@ -32,7 +32,14 @@ mvn eclipse:eclipse
 -- Create a war of the service in the ./target directory:
 mvn clean package
 
--- Start a jetty server on port 8080 with the service deployed to /http-status/
-mvn clean jetty:run-war
+-- ./cleanrun
+cleans and generates a runnable jetty-war, starts the application on the port
+defined in the pom.xml
+
+-- alternatively under windows you could run the server using
+mvn clean package 
+java -jar target/dependency/jetty-runner.jar target/http-status-codes-0.1.war 
+
+Or you could deploy the war file manually, e.g. copy into tomcat
 
 *******************************************************************************

@@ -50,6 +50,7 @@ public enum HttpStatus {
 	UnsupportedMediaType(415, "Unsupported Media Type", "The request was unsuccessful because the request was for an unsupported format."),
 	RequestRangeNotSatisfiable(416, "Request Range Not Satisfiable", "The range of the resource does not overlap with the values specified in the requests Range header field and not alternative If-Range field was supplied."),
 	ExpectationFailed(417, "Expectation Failed", "The expectation supplied in the Expectation header field could not be met by the server."),
+	ImATeapot(418, "I'm a teapot", "I'm a teapot"),
 
 	InternalServerError(500, "Internal Server Error", "The request was unsuccessful because the server encountered an unexpected error."),
 	NotImplemented(501, "Not Implemented", "The server does not support the request."),

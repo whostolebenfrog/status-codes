@@ -1,0 +1,1 @@
+java -jar target/dependency/jetty-runner.jar target/http-status-codes-0.1.war

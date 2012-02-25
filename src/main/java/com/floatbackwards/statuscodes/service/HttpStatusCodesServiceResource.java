@@ -17,7 +17,7 @@ import com.floatbackwards.statuscodes.JaxbStatus;
  * @author Ben Griffiths
  * 
  */
-@Path("/")
+@Path("/http-status/")
 public interface HttpStatusCodesServiceResource {
 
 	static final String JSON = "application/json";

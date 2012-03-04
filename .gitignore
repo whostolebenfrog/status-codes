@@ -5,10 +5,12 @@ bin/**
 tmp/**
 tmp/**/*
 target/**
+.idea/**
 *.tmp
 *.bak
 *.swp
 *~.nib
+*.iml
 local.properties
 .classpath
 .settings/
